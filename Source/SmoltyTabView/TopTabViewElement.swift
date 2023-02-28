@@ -6,8 +6,8 @@ import SwiftUI
 
 public struct TopTabViewElement<TabType: Hashable>: View {
 
-    let tab: TabType
-    let content: AnyView
+    public let tab: TabType
+    public let content: AnyView
 
     public init(
         tab: TabType,
