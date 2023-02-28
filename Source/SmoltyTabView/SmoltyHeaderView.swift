@@ -11,37 +11,34 @@ import SwiftUI
 
 public struct SmoltyHeaderView<Header: View, Tab: Hashable, TabSelectionView: View>: View {
 
+    @State var currentScrollDelegateCache: EmbeddableScrollViewDelegate?
+    var currentScrollDelegate: EmbeddableScrollViewDelegate {
+        currentScrollDelegateCache ?? delegate(for: currentSelection)
+    }
+    @StateObject var delegateProvider = DelegateProvider<Tab>()
+    @Binding var currentSelection: Tab
+
+    @State var headerHeight: CGFloat = 0
+    @State var tabHeight: CGFloat = 0
 
     let headerBuilder: () -> Header
     let tabBuilder: () -> TabSelectionView
     let tabs: [TopTabViewElement<Tab>]
+    let statusBarBackground: Color
 
     public init(
         @ViewBuilder headerBuilder: @escaping () -> Header,
         @ViewBuilder tabBuilder: @escaping () -> TabSelectionView,
         tabs: [TopTabViewElement<Tab>],
-        currentSelection: Binding<Tab>
+        currentSelection: Binding<Tab>,
+        statusBarBackground: Color = Color(.systemBackground)
     ) {
         self.headerBuilder = headerBuilder
         self.tabBuilder = tabBuilder
         self.tabs = tabs
         self._currentSelection = currentSelection
+        self.statusBarBackground = statusBarBackground
     }
-
-    @State var currentScrollDelegateCache: EmbeddableScrollViewDelegate?
-    var currentScrollDelegate: EmbeddableScrollViewDelegate {
-        currentScrollDelegateCache ?? delegate(for: currentSelection)
-    }
-
-    @StateObject var delegateProvider = DelegateProvider<Tab>()
-    @Binding var currentSelection: Tab
-
-    func delegate(for tab: Tab) -> EmbeddableScrollViewDelegate {
-        delegateProvider.delegate(for: tab, headerHeight: headerHeight, tabHeight: tabHeight)
-    }
-
-    @State var headerHeight: CGFloat = 0
-    @State var tabHeight: CGFloat = 0
 
     var tabInset: CGFloat {
         let baseInset = headerInset + headerHeight
@@ -70,7 +67,7 @@ public struct SmoltyHeaderView<Header: View, Tab: Hashable, TabSelectionView: Vi
             }
             VStack {
                 Rectangle()
-                    .fill(Color.white)
+                    .fill(statusBarBackground)
                     .frame(height: geo.safeAreaInsets.top)
                     .ignoresSafeArea(.all, edges: .top)
                 Spacer()
@@ -123,6 +120,10 @@ public struct SmoltyHeaderView<Header: View, Tab: Hashable, TabSelectionView: Vi
             Spacer()
         }
         .offset(y: tabInset)
+    }
+
+    func delegate(for tab: Tab) -> EmbeddableScrollViewDelegate {
+        delegateProvider.delegate(for: tab, headerHeight: headerHeight, tabHeight: tabHeight)
     }
 
 }
