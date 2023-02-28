@@ -42,7 +42,9 @@ final class EmbeddableScrollViewDelegate: NSObject, ObservableObject, UIScrollVi
 
         updateScrollViewContentOffset()
 
-        self.objectWillChange.send()
+        DispatchQueue.main.async {
+            self.objectWillChange.send()
+        }
     }
 
     func updateScrollViewContentOffset() {

@@ -27,7 +27,9 @@ class DelegateProvider<Tab: Hashable>: ObservableObject {
             delegateResult.headerHeight = headerHeight
             delegateResult.tabHeight = tabHeight
             delegateResult.$contentOffset.sink { [weak self] _ in
-                self?.objectWillChange.send()
+                DispatchQueue.main.async {
+                    self?.objectWillChange.send()
+                }
                 self?.syncSignal(from: tab)
             }.store(in: &cancellables)
         }
