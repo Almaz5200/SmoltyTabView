@@ -17,7 +17,7 @@ public struct EmbeddableScrollView<Content: View>: View {
     }
 
     public var body: some View {
-        ScrollView {
+        ScrollView(showsIndicators: false) {
             content
                 .padding(.top, topPadding)
         }
