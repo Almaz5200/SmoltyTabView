@@ -91,15 +91,7 @@ public struct SmoltyHeaderView<Header: View, Tab: Hashable, TabSelectionView: Vi
     func finalHeader() -> some View {
         VStack {
             headerBuilder()
-                .background (
-                    GeometryReader { geo in
-                        Color.clear
-                            .id(geo.size.height)
-                            .onAppear {
-                                headerHeight = geo.size.height
-                            }
-                    }
-                )
+                .background(HeightReaderView(binding: $headerHeight))
                 .offset(y: headerInset)
             Spacer()
         }
@@ -108,15 +100,7 @@ public struct SmoltyHeaderView<Header: View, Tab: Hashable, TabSelectionView: Vi
     func finalTab() -> some View {
         VStack {
             tabBuilder()
-                .background (
-                    GeometryReader { geo in
-                        Color.clear
-                            .id(geo.size.height)
-                            .onAppear {
-                                tabHeight = geo.size.height
-                            }
-                    }
-                )
+                .background(HeightReaderView(binding: $tabHeight))
             Spacer()
         }
         .offset(y: tabInset)
@@ -126,4 +110,22 @@ public struct SmoltyHeaderView<Header: View, Tab: Hashable, TabSelectionView: Vi
         delegateProvider.delegate(for: tab, headerHeight: headerHeight, tabHeight: tabHeight)
     }
 
+}
+
+private struct HeightPreferenceKey: PreferenceKey {
+  static func reduce(value _: inout CGFloat, nextValue _: () -> CGFloat) {}
+  static var defaultValue: CGFloat = 0
+}
+
+private struct HeightReaderView: View {
+  @Binding var binding: CGFloat
+  var body: some View {
+    GeometryReader { geo in
+      Color.clear
+           .preference(key: HeightPreferenceKey.self, value: geo.frame(in: .local).size.height)
+    }
+    .onPreferenceChange(HeightPreferenceKey.self) { h in
+      binding = h
+    }
+  }
 }
