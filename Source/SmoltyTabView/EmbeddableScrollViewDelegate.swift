@@ -32,8 +32,9 @@ final class EmbeddableScrollViewDelegate: NSObject, ObservableObject, UIScrollVi
     }
 
     private func updateInset() {
-        guard topPadding?.wrappedValue != contentInset else { return }
-        topPadding?.wrappedValue = contentInset
+        if topPadding?.wrappedValue != contentInset { 
+            topPadding?.wrappedValue = contentInset
+        }
         if let scrollView {
             let screenHeight = scrollView.frame.height
             let contentHeight = scrollView.contentSize.height - (topPadding?.wrappedValue ?? 0) - (bottomPadding?.wrappedValue ?? 0)
@@ -67,9 +68,6 @@ final class EmbeddableScrollViewDelegate: NSObject, ObservableObject, UIScrollVi
     }
 
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        if scrollView !== self.scrollView { 
-            self.scrollView = scrollView
-        }
         contentOffset = scrollView.contentOffset.y
         updateInset()
     }
