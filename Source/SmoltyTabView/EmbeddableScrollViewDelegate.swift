@@ -11,6 +11,9 @@ final class EmbeddableScrollViewDelegate: NSObject, ObservableObject, UIScrollVi
     var topPadding: Binding<CGFloat>? {
         didSet { updateInset() }
     }
+    var bottomPadding: Binding<CGFloat>? {
+        didSet { updateInset() }
+    }
 
     var scrollView: UIScrollView? {
         didSet {
@@ -30,6 +33,13 @@ final class EmbeddableScrollViewDelegate: NSObject, ObservableObject, UIScrollVi
     private func updateInset() {
         guard topPadding?.wrappedValue != contentInset else { return }
         topPadding?.wrappedValue = contentInset
+        if let scrollView {
+            let screenHeight = scrollView.frame.height
+            let contentHeight = scrollView.contentSize.height
+
+            let bottomInset = max(0, screenHeight - contentHeight)
+            bottomPadding?.wrappedValue = bottomInset
+        }
     }
 
     func catchFrom(_ other: EmbeddableScrollViewDelegate) {

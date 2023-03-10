@@ -9,6 +9,7 @@ public struct EmbeddableScrollView<Content: View>: View {
 
     @Environment(\.scrollViewDelegate) var delegate
     @State var topPadding: CGFloat = 0
+    @State var bottomPadding: CGFloat = 0
 
     let content: Content
 
@@ -20,11 +21,13 @@ public struct EmbeddableScrollView<Content: View>: View {
         ScrollView(showsIndicators: false) {
             content
                 .padding(.top, topPadding)
+                .padding(.bottom, bottomPadding)
         }
         .introspectScrollView {
             $0.delegate = delegate
             delegate?.scrollView = $0
             delegate?.topPadding = $topPadding
+            delegate?.bottomPadding = $bottomPadding
         }
     }
 
