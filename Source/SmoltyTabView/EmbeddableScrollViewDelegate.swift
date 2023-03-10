@@ -40,7 +40,9 @@ final class EmbeddableScrollViewDelegate: NSObject, ObservableObject, UIScrollVi
             let contentHeight = scrollView.contentSize.height - (topPadding?.wrappedValue ?? 0) - (bottomPadding?.wrappedValue ?? 0)
 
             let bottomInset = max(0, screenHeight - contentHeight - tabHeight)
-            bottomPadding?.wrappedValue = bottomInset
+            if bottomPadding?.wrappedValue != bottomInset {
+                bottomPadding?.wrappedValue = bottomInset
+            }
         }
     }
 
@@ -69,7 +71,6 @@ final class EmbeddableScrollViewDelegate: NSObject, ObservableObject, UIScrollVi
 
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         contentOffset = scrollView.contentOffset.y
-        updateInset()
     }
 
 }
