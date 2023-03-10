@@ -68,6 +68,7 @@ final class EmbeddableScrollViewDelegate: NSObject, ObservableObject, UIScrollVi
 
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         contentOffset = scrollView.contentOffset.y
+        updateInset()
     }
 
 }
