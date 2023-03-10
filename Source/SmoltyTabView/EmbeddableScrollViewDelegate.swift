@@ -18,6 +18,7 @@ final class EmbeddableScrollViewDelegate: NSObject, ObservableObject, UIScrollVi
     var scrollView: UIScrollView? {
         didSet {
             updateScrollViewContentOffset()
+            updateInset()
         }
     }
     var tabHeight: CGFloat = 0 {
@@ -37,7 +38,7 @@ final class EmbeddableScrollViewDelegate: NSObject, ObservableObject, UIScrollVi
             let screenHeight = scrollView.frame.height
             let contentHeight = scrollView.contentSize.height
 
-            let bottomInset = max(0, screenHeight - contentHeight)
+            let bottomInset = max(0, screenHeight - contentHeight - tabHeight)
             bottomPadding?.wrappedValue = bottomInset
         }
     }
