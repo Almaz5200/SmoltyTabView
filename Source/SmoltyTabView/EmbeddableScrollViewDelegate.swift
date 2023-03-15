@@ -17,8 +17,10 @@ final class EmbeddableScrollViewDelegate: NSObject, ObservableObject, UIScrollVi
 
     var scrollView: UIScrollView? {
         didSet {
-            updateScrollViewContentOffset()
-            updateInset()
+            if oldValue !== scrollView {
+                updateScrollViewContentOffset()
+                updateInset()
+            }
         }
     }
     var tabHeight: CGFloat = 0 {
