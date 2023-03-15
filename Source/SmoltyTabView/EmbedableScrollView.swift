@@ -8,7 +8,7 @@ import SwiftUI
 public struct EmbeddableScrollView<Content: View>: View {
 
     @Environment(\.scrollViewDelegate) var delegate
-    @State var topPadding: CGFloat = 320
+    @State var topPadding: CGFloat = 0
     @State var minHeight: CGFloat = 0
 
     let content: Content
