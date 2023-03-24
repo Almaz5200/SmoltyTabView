@@ -18,9 +18,7 @@ Add the package to your project using Swift Package Manager (SPM):
 To use SmoltyTabView, follow these steps:
 
 1.  Import the package:
-    
-    swiftCopy code
-    
+        
     `import  SmoltyTabView`
     
 2.  Use `SmoltyHeaderView` and create your custom header, tab selection, and tab views:
