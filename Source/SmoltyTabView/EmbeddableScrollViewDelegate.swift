@@ -15,7 +15,7 @@ final class EmbeddableScrollViewDelegate: NSObject, ObservableObject, UIScrollVi
         didSet { updateInset() }
     }
 
-    var scrollView: UIScrollView? {
+    weak var scrollView: UIScrollView? {
         didSet {
             if oldValue !== scrollView {
                 updateScrollViewContentOffset()
