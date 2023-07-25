@@ -53,8 +53,16 @@ public struct SmoltyHeaderView<Header: View, Tab: Hashable, TabSelectionView: Vi
         GeometryReader { geo in
             ZStack {
                 TabView(selection: $currentSelection) {
-                    ForEach(tabs, id: \.tab) { tab in
-                        tab.environment(\.scrollViewDelegate, delegate(for: tab.tab))
+                    ForEach(tabs, id: \.tab) { [weak delegateProvider, headerHeight, tabHeight] tab in
+                        tab
+                            .environment(
+                                \.scrollViewDelegate,
+                                 delegateProvider?.delegate(
+                                    for: tab.tab,
+                                    headerHeight: headerHeight,
+                                    tabHeight: tabHeight
+                                 )
+                            )
                     }
                 }
                 .tabViewStyle(.page(indexDisplayMode: .never))
