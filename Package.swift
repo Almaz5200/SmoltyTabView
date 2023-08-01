@@ -18,7 +18,7 @@ let package = Package(
         .target(
             name: "SmoltyTabView",
             dependencies: [
-                .product(name: "Introspect", package: "SwiftUI-Introspect")
+                .product(name: "SwiftUIIntrospect", package: "SwiftUI-Introspect")
             ]
         )
     ]

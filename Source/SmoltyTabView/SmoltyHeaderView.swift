@@ -6,7 +6,7 @@
 //
 
 import Combine
-import Introspect
+import SwiftUIIntrospect
 import SwiftUI
 
 public struct SmoltyHeaderView<Header: View, Tab: Hashable, TabSelectionView: View>: View {
