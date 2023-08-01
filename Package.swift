@@ -12,7 +12,7 @@ let package = Package(
             targets: ["SmoltyTabView"]),
     ],
     dependencies: [
-        .package(url: "https://github.com/siteline/SwiftUI-Introspect.git", from: "0.2.0")
+        .package(url: "https://github.com/siteline/SwiftUI-Introspect.git", from: "0.10.0")
     ],
     targets: [
         .target(

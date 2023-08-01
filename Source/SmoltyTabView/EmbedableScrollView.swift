@@ -2,7 +2,7 @@
 // Created by Artem Trubacheev on 22.02.2023.
 //
 
-import Introspect
+import SwiftUIIntrospect
 import SwiftUI
 
 public struct EmbeddableScrollView<Content: View>: View {
@@ -23,7 +23,7 @@ public struct EmbeddableScrollView<Content: View>: View {
                 .frame(minHeight: minHeight, alignment: .top)
                 .padding(.top, topPadding)
         }
-        .introspectScrollView { scroll in
+        .introspect(.scrollView, on: .iOS(.v13, .v14, .v15, .v16, .v17)) { scroll in
             scroll.delegate = delegate
             delegate?.scrollView = scroll
             delegate?.topPadding = $topPadding
