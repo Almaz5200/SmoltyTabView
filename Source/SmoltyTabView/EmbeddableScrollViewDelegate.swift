@@ -36,10 +36,10 @@ final class EmbeddableScrollViewDelegate: NSObject, ObservableObject, UIScrollVi
     private func updateInset() {
         DispatchQueue.main.async { [weak self] in
             guard let self else { return }
-            if topPadding?.wrappedValue != contentInset {
-                topPadding?.wrappedValue = contentInset
+            if self.topPadding?.wrappedValue != contentInset {
+                self.topPadding?.wrappedValue = contentInset
             }
-            if let scrollView {
+            if let scrollView = self.scrollView {
                 let minHeight = scrollView.frame.height - tabHeight
                 if self.minHeight?.wrappedValue != minHeight {
                     self.minHeight?.wrappedValue = minHeight
