@@ -23,7 +23,7 @@ To use SmoltyTabView, follow these steps:
     
 2.  Use `SmoltyHeaderView` and create your custom header, tab selection, and tab views:
     
-    ```
+    ```swift
     SmoltyHeaderView(headerBuilder: {
     // Your custom header view
     }, tabBuilder: {
@@ -40,7 +40,7 @@ To use SmoltyTabView, follow these steps:
 
 Here's a simple example of how to use SmoltyTabView:
 
-```
+```swift
 import SwiftUI
 import SmoltyTabView
 
